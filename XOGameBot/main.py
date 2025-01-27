@@ -5,8 +5,8 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent, \
     InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 
-# Importing game logic and data from data.py
-from data import *  # Assuming game logic is implemented in data.py
+# Importing from data.py which imports XoGameObject.py and emojis.py
+from data import *  # This will import the necessary game data and logic from data.py
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,11 +20,11 @@ def remove_env_var(key):
     unset_key(".env", key)
 
 # Initialize the client app using the environment variables
-app = Client("XOGame",  # Session name
-    api_id=os.environ.get("API_ID"),
-    api_hash=os.environ.get("API_HASH"),
-    bot_token=os.environ.get("BOT_TOKEN")
-)
+app = Client(session_name="XOGame",
+             api_id=os.environ.get("API_ID"),
+             api_hash=os.environ.get("API_HASH"),
+             bot_token=os.environ.get("BOT_TOKEN")
+             )
 
 def mention(name: str, id: int) -> str:
     return "[{}](tg://user?id={})".format(name, id)
@@ -53,9 +53,9 @@ CONTACT_KEYS = InlineKeyboardMarkup([
 ])
 
 @app.on_message(filters.private & filters.text)
-def message_handler(bot: Client, message: Message):
+async def message_handler(bot: Client, message: Message):
     if message.text == "/start":
-        bot.send_message(
+        await bot.send_message(
             message.from_user.id,
             f"ʜɪ **{message.from_user.first_name}**\n\nTᴏ Sᴛᴀʀᴛ Pʟᴀʏɪɴɢ  Bɪʟʟᴀ XO Gᴀᴍᴇ , Sᴛᴀʀᴛ Mᴇ Fɪʀsᴛ Iɴ Pᴍ"
             "Aᴅᴅ @BillaXoBot ɪɴ ᴀɴʏ ᴄʜᴀᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴏʀ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ **Pʟᴀʏ** ʙᴜᴛᴛᴏɴ "
@@ -68,7 +68,7 @@ def message_handler(bot: Client, message: Message):
             ])
         )
     elif message.text == "/inquiry":
-        bot.send_message(
+        await bot.send_message(
             message.from_user.id,
             "Fᴇᴇʟ Fʀᴇᴇ Tᴏ Sʜᴀʀᴇ Yᴏᴜʀ Tʜᴏᴜɢʜᴛs Oɴ Bɪʟʟᴀ Xᴏ Bᴏᴛ Wɪᴛʜ Mᴇ.",
             reply_markup=CONTACT_KEYS
@@ -76,8 +76,8 @@ def message_handler(bot: Client, message: Message):
 
 
 @app.on_inline_query()
-def inline_query_handler(_, query: InlineQuery):
-    query.answer(
+async def inline_query_handler(_, query: InlineQuery):
+    await query.answer(
         results=[InlineQueryResultArticle(
             title="Tɪᴄ-Tᴀᴄ-Tᴏᴇ",
             input_message_content=InputTextMessageContent(
@@ -103,12 +103,12 @@ def inline_query_handler(_, query: InlineQuery):
 
 
 @app.on_callback_query()
-def callback_query_handler(bot: Client, query: CallbackQuery):
+async def callback_query_handler(bot: Client, query: CallbackQuery):
     data = json.loads(query.data)
     game = get_game(query.inline_message_id, data)
     if data["type"] == "P":  # Player
         if game.player1["id"] == query.from_user.id:
-            bot.answer_callback_query(
+            await bot.answer_callback_query(
                 query.id,
                 "Wᴀɪᴛ ғᴏʀ ᴏᴘᴘᴏɴᴇɴᴛ!",
                 show_alert=True
@@ -130,14 +130,14 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
                 emojis.X  # X emoji
             )
 
-            bot.edit_inline_text(
+            await bot.edit_inline_text(
                 query.inline_message_id,
                 message_text,
                 reply_markup=InlineKeyboardMarkup(game.board_keys)
             )
     elif data["type"] == "K":  # Keyboard
         if data["end"]:
-            bot.answer_callback_query(
+            await bot.answer_callback_query(
                 query.id,
                 "Mᴀᴛᴄʜ ʜᴀs ᴇɴᴅᴇᴅ!",
                 show_alert=True
@@ -147,7 +147,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
 
         if (game.whose_turn and query.from_user.id != game.player1["id"]) \
                 or (not game.whose_turn and query.from_user.id != game.player2["id"]):
-            bot.answer_callback_query(
+            await bot.answer_callback_query(
                 query.id,
                 "Nᴏᴛ ʏᴏᴜʀ ᴛᴜʀɴ!"
             )
@@ -189,13 +189,13 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
                     emojis.X if game.whose_turn else emojis.O
                 )
 
-            bot.edit_inline_text(
+            await bot.edit_inline_text(
                 query.inline_message_id,
                 message_text,
                 reply_markup=InlineKeyboardMarkup(game.board_keys)
             )
         else:
-            bot.answer_callback_query(
+            await bot.answer_callback_query(
                 query.id,
                 "Tʜɪs ᴏɴᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴛᴀᴋᴇɴ!"
             )
@@ -213,14 +213,14 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
             emojis.X  # X emoji
         )
 
-        bot.edit_inline_text(
+        await bot.edit_inline_text(
             query.inline_message_id,
             message_text,
             reply_markup=InlineKeyboardMarkup(game.board_keys)
         )
     elif data["type"] == "C":  # Contact
         if data["action"] == "Cʜᴀᴛ":
-            bot.edit_message_text(
+            await bot.edit_message_text(
                 query.from_user.id,
                 query.message.message_id,
                 "https://t.me/Harmony_Hub8",
@@ -236,7 +236,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
                 )
             )
         elif data["action"] == "email-back":
-            bot.edit_message_text(
+            await bot.edit_message_text(
                 query.from_user.id,
                 query.message.message_id,
                 "Fᴇᴇʟ Fʀᴇᴇ Tᴏ Sʜᴀʀᴇ Yᴏᴜʀ Tʜᴏᴜɢʜᴛs Oɴ Bɪʟʟᴀ Xᴏ Hᴇʀᴇ @BillaCore.",
