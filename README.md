@@ -1,7 +1,7 @@
-# XO Game [![License](https://img.shields.io/github/license/jacklul/inlinegamesbot.svg)](https://github.com/reza00farjam/XO-Game-Bot/blob/main/LICENSE) [![Telegram](https://img.shields.io/badge/Telegram-%40XOGameRFBot-blue.svg)](https://telegram.me/XOGameRFBot)
+# XO Game [![License](https://img.shields.io/github/license/jacklul/inlinegamesbot.svg)](https://github.com/ifeelraam/billaxo/blob/main/LICENSE) [![Telegram](https://img.shields.io/badge/Telegram-%40XOGameRFBot-blue.svg)](https://telegram.me/BillaXoBot)
 
 A Telegram bot for playing XO (Tic-Tac-Toe) game with friends via inline keyboards.   
-See the bot in action by messaging [@XOGameRFBot](https://telegram.me/XOGameRFBot) or typing @XOGameRFBot in any chat.
+See the bot in action by messaging [@BillaXoBot](https://telegram.me/BillaXoBot) or typing @BillaXoBot in any chat.
 
 ## Commands
 ```
@@ -10,4 +10,4 @@ contact - Contact developer
 ```
 
 ## License
-See [LICENSE](https://github.com/reza00farjam/XO-Game-Bot/blob/main/LICENSE).
+See [LICENSE](httpshttps://github.com/ifeelraam/billaxo/blob/main/LICENSE).
