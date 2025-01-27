@@ -20,20 +20,20 @@ def mention(name: str, id: int) -> str:
 CONTACT_KEYS = InlineKeyboardMarkup([
     [
         InlineKeyboardButton(
-            emojis.cat + " GitHub",
-            url="https://github.com/reza00farjam"
+            emojis.cat + " Sᴜᴘᴘᴏʀᴛ",
+            url="https://telegram.me/storm_techh"
         ),
         InlineKeyboardButton(
-            emojis.id + " Telegram",
-            url="http://telegram.me/rzafrjam"
+            emojis.id + " Dᴇᴠᴇʟᴏᴘᴇʀ",
+            url="http://telegram.me/interstellarXd"
         )
     ],
     [
         InlineKeyboardButton(
-            emojis.mail + " Email",
+            emojis.mail + " Cʜᴀᴛ",
             json.dumps({
                 "type": "C",
-                "action": "email"
+                "action": "Cʜᴀᴛ"
             })
         )
     ]
@@ -45,9 +45,9 @@ def message_handler(bot: Client, message: Message):
     if message.text == "/start":
         bot.send_message(
             message.from_user.id,
-            f"Hi **{message.from_user.first_name}**\n\nTo begin, start a message "
-            "with @XOGameRFBot in any chat you want or click on the **Play** button "
-            "and select a chat to play in.",
+            f"ʜɪ **{message.from_user.first_name}**\n\nTᴏ Sᴛᴀʀᴛ Pʟᴀʏɪɴɢ  Bɪʟʟᴀ XO Gᴀᴍᴇ , Sᴛᴀʀᴛ Mᴇ Fɪʀsᴛ Iɴ Pᴍ"
+            "Aᴅᴅ @BillaXoBot ɪɴ ᴀɴʏ ᴄʜᴀᴛ ʏᴏᴜ ᴡᴀɴᴛ ᴏʀ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ **Pʟᴀʏ** ʙᴜᴛᴛᴏɴ "
+            "Aɴᴅ Sᴇʟᴇᴄᴛ A Cʜᴀᴛ Tᴏ Pʟᴀʏ Iɴ.",
             reply_markup=InlineKeyboardMarkup([
                 [InlineKeyboardButton(
                     emojis.game + " Play",
@@ -55,10 +55,10 @@ def message_handler(bot: Client, message: Message):
                 )]
             ])
         )
-    elif message.text == "/contact":
+    elif message.text == "/inquiry":
         bot.send_message(
             message.from_user.id,
-            "Feel free to share your thoughts on XO bot with me.",
+            "Fᴇᴇʟ Fʀᴇᴇ Tᴏ Sʜᴀʀᴇ Yᴏᴜʀ Tʜᴏᴜɢʜᴛs Oɴ Bɪʟʟᴀ Xᴏ Bᴏᴛ Wɪᴛʜ Mᴇ.",
             reply_markup=CONTACT_KEYS
         )
 
@@ -67,16 +67,16 @@ def message_handler(bot: Client, message: Message):
 def inline_query_handler(_, query: InlineQuery):
     query.answer(
         results=[InlineQueryResultArticle(
-            title="Tic-Tac-Toe",
+            title="Tɪᴄ-Tᴀᴄ-Tᴏᴇ",
             input_message_content=InputTextMessageContent(
-                f"**{query.from_user.first_name}** challenged you in XO!"
+                f"**{query.from_user.first_name}** Cʜᴀʟʟᴇɴɢᴇᴅ Yᴏᴜ Iɴ Xo!"
             ),
-            description="Tap here to challenge your friends in XO!",
+            description="Tᴀᴘ ʜᴇʀᴇ ᴛᴏ ᴄʜᴀʟʟᴇɴɢᴇ ʏᴏᴜʀ ғʀɪᴇɴᴅs ɪɴ XO!",
             thumb_url="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Tic_tac_toe.svg/1200px-Tic_tac_toe"
                       ".svg.png",
             reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton(
-                    emojis.swords + " Accept",
+                    emojis.swords + " Aᴄᴄᴇᴘᴛ",
                     json.dumps(
                         {"type": "P",
                          "id": query.from_user.id,
@@ -98,7 +98,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
         if game.player1["id"] == query.from_user.id:
             bot.answer_callback_query(
                 query.id,
-                "Wait for opponent!",
+                "Wᴀɪᴛ ғᴏʀ ᴏᴘᴘᴏɴᴇɴᴛ!",
                 show_alert=True
             )
         elif game.player1["id"] != query.from_user.id:
@@ -127,7 +127,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
         if data["end"]:
             bot.answer_callback_query(
                 query.id,
-                "Match has ended!",
+                "Mᴀᴛᴄʜ ʜᴀs ᴇɴᴅᴇᴅ!",
                 show_alert=True
             )
 
@@ -137,7 +137,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
                 or (not game.whose_turn and query.from_user.id != game.player2["id"]):
             bot.answer_callback_query(
                 query.id,
-                "Not your turn!"
+                "Nᴏᴛ ʏᴏᴜʀ ᴛᴜʀɴ!"
             )
 
             return
@@ -185,7 +185,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
         else:
             bot.answer_callback_query(
                 query.id,
-                "This one is already taken!"
+                "Tʜɪs ᴏɴᴇ ɪs ᴀʟʀᴇᴀᴅʏ ᴛᴀᴋᴇɴ!"
             )
     elif data["type"] == "R":  # Reset
         game = reset_game(game)
@@ -207,17 +207,17 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
             reply_markup=InlineKeyboardMarkup(game.board_keys)
         )
     elif data["type"] == "C":  # Contact
-        if data["action"] == "email":
+        if data["action"] == "Cʜᴀᴛ":
             bot.edit_message_text(
                 query.from_user.id,
                 query.message.message_id,
-                "reza.farjam78@gmail.com",
+                "https://t.me/Harmony_Hub8",
                 reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton(
-                        emojis.back + " Back",
+                        emojis.back + " Bᴀᴄᴋ",
                         json.dumps(
                             {"type": "C",
-                             "action": "email-back"
+                             "action": "Cʜᴀᴛ-Bᴀᴄᴋ"
                              }
                         )
                     )]]
@@ -227,7 +227,7 @@ def callback_query_handler(bot: Client, query: CallbackQuery):
             bot.edit_message_text(
                 query.from_user.id,
                 query.message.message_id,
-                "Feel free to share your thoughts on XO bot with me.",
+                "Fᴇᴇʟ Fʀᴇᴇ Tᴏ Sʜᴀʀᴇ Yᴏᴜʀ Tʜᴏᴜɢʜᴛs Oɴ Bɪʟʟᴀ Xᴏ Hᴇʀᴇ @BillaCore.",
                 reply_markup=CONTACT_KEYS
             )
 
