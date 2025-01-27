@@ -20,11 +20,12 @@ def remove_env_var(key):
     unset_key(".env", key)
 
 # Initialize the client app using the environment variables
-app = Client(session_name="XOGame",
-             api_id=os.environ.get("API_ID"),
-             api_hash=os.environ.get("API_HASH"),
-             bot_token=os.environ.get("BOT_TOKEN")
-             )
+app = Client(
+    "XOGame",  # This will automatically create a session file with this name
+    api_id=os.environ.get("API_ID"),
+    api_hash=os.environ.get("API_HASH"),
+    bot_token=os.environ.get("BOT_TOKEN")
+)
 
 def mention(name: str, id: int) -> str:
     return "[{}](tg://user?id={})".format(name, id)
