@@ -44,10 +44,10 @@ CONTACT_KEYS = InlineKeyboardMarkup([
     ],
     [
         InlineKeyboardButton(
-            emojis.mail + " Cʜᴀᴛ",  # Chat button
+            emojis.mail + " email",  # Chat button
             json.dumps({
                 "type": "C",
-                "action": "Cʜᴀᴛ"
+                "action": "email"
             })
         )
     ]
@@ -224,13 +224,13 @@ async def callback_query_handler(bot: Client, query: CallbackQuery):
             await bot.edit_message_text(
                 query.from_user.id,
                 query.message.message_id,
-                "https://t.me/Harmony_Hub8",
+                "StormVortexv2@gmail.com",
                 reply_markup=InlineKeyboardMarkup(
                     [[InlineKeyboardButton(
-                        emojis.back + " Bᴀᴄᴋ",  # Back button
+                        emojis.back + " back",  # Back button
                         json.dumps(
                             {"type": "C",
-                             "action": "Cʜᴀᴛ-Bᴀᴄᴋ"
+                             "action": "email-back"
                              }
                         )
                     )]]
