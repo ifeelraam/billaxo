@@ -5,8 +5,8 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineQuery, InlineQueryResultArticle, InputTextMessageContent, \
     InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 
-# Importing from data.py which imports XoGameObject.py and emojis.py
-from data import *  # This will import the necessary game data and logic from data.py
+# Importing game logic and data from data.py
+from data import *  # Assuming game logic is implemented in data.py
 
 # Load environment variables from .env file
 load_dotenv()
@@ -20,11 +20,11 @@ def remove_env_var(key):
     unset_key(".env", key)
 
 # Initialize the client app using the environment variables
-app = Client(session_name="XOGame",
-             api_id=os.environ.get("API_ID"),
-             api_hash=os.environ.get("API_HASH"),
-             bot_token=os.environ.get("BOT_TOKEN")
-             )
+app = Client("XOGame",  # Session name
+    api_id=os.environ.get("API_ID"),
+    api_hash=os.environ.get("API_HASH"),
+    bot_token=os.environ.get("BOT_TOKEN")
+)
 
 def mention(name: str, id: int) -> str:
     return "[{}](tg://user?id={})".format(name, id)
