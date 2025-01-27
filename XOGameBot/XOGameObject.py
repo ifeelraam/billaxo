@@ -79,7 +79,7 @@ class XOGame:
 
         new_board_keys.append(
             [InlineKeyboardButton(
-                "Play again!",
+                "Pʟᴀʏ ᴀɢᴀɪɴ!",
                 json.dumps({
                     "type": "R"
                 })
